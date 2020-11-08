@@ -1,0 +1,4 @@
+# Prisma Migrate lockfile v1
+
+20201108225208-create-user-and-sessions
+20201108225645-create-expenses
