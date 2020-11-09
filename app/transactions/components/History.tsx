@@ -2,12 +2,16 @@ import React from "react"
 import useUserTransactions from "../hooks/useUserTransactions"
 import { sumTotalIncome, sumTotalExpenses } from "../utils/functions"
 
-const IncomeExpenses: React.FC = () => {
-  const [{ transactions }] = useUserTransactions()
+const History: React.FC = () => {
+  const [data] = useUserTransactions()
 
-  const totalIncome = sumTotalIncome(transactions)
+  if (!data) {
+    return <p>hola</p>
+  }
 
-  const totalExpenses = sumTotalExpenses(transactions)
+  const totalIncome = sumTotalIncome(data.transactions)
+
+  const totalExpenses = sumTotalExpenses(data.transactions)
 
   return (
     <div className="flex justify-between p-5 mx-0 my-5 bg-white rounded-md shadow-md">
@@ -28,4 +32,4 @@ const IncomeExpenses: React.FC = () => {
   )
 }
 
-export default IncomeExpenses
+export default History

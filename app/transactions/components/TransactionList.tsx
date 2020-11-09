@@ -4,14 +4,18 @@ import useUserTransactions from "../hooks/useUserTransactions"
 import Transaction from "./Transaction"
 
 const TransactionList: React.FC = () => {
-  const [{ transactions }] = useUserTransactions()
+  const [data] = useUserTransactions()
+
+  if (!data) {
+    return <p>hola</p>
+  }
 
   return (
     <>
       <h3 className="pb-2 mt-10 text-xl font-bold border-b-2 border-gray-400">History</h3>
       <ul className="list">
         <AnimatePresence>
-          {transactions.map((transaction) => (
+          {data.transactions.map((transaction) => (
             <Transaction key={transaction.id} transaction={transaction} />
           ))}
         </AnimatePresence>

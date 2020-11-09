@@ -16,17 +16,17 @@ const AddTransaction: React.FC = () => {
 
   const currentUser = useCurrentUser()
 
-  const onSubmit = handleSubmit((values) => {
+  const onSubmit = handleSubmit(async (values) => {
     if (!currentUser) {
       return
     }
 
     const newTransaction = {
       name: values.text,
-      amount: values.amount,
+      amount: +values.amount,
     }
 
-    mutate({ data: newTransaction })
+    await mutate({ data: newTransaction })
     reset()
     textInputRef.current?.focus()
   })
