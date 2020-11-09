@@ -1,9 +1,9 @@
 import React from "react"
-import { useTransactionsState } from "../context"
+import useUserTransactions from "../hooks/useUserTransactions"
 import { sumTotalIncome, sumTotalExpenses } from "../utils/functions"
 
 const IncomeExpenses: React.FC = () => {
-  const { transactions } = useTransactionsState()
+  const [{ transactions }] = useUserTransactions()
 
   const totalIncome = sumTotalIncome(transactions)
 

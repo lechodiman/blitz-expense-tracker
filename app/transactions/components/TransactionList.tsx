@@ -1,10 +1,10 @@
 import React from "react"
-import Transaction from "./Transaction"
-import { useTransactionsState } from "app/transactions/context/"
 import { AnimatePresence } from "framer-motion"
+import useUserTransactions from "../hooks/useUserTransactions"
+import Transaction from "./Transaction"
 
 const TransactionList: React.FC = () => {
-  const { transactions } = useTransactionsState()
+  const [{ transactions }] = useUserTransactions()
 
   return (
     <>

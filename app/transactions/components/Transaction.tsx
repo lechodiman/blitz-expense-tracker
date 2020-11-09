@@ -1,17 +1,18 @@
 import React from "react"
-import { useTransactionsDispatch } from "app/transactions/context/"
-import { motion } from "framer-motion"
 import { Transaction } from "@prisma/client"
+import { useMutation } from "blitz"
+import { motion } from "framer-motion"
+import deleteTransaction from "../mutations/deleteTransaction"
 
 interface Props {
   transaction: Transaction
 }
 
 const TransactionDetails: React.FC<Props> = ({ transaction }) => {
-  const dispatch = useTransactionsDispatch()
+  const [mutate] = useMutation(deleteTransaction)
 
-  const deleteTransaction = (): void => {
-    dispatch({ type: "DELETE_TRANSACTION", payload: { id: transaction.id } })
+  const delTransaction = (): void => {
+    mutate({ where: { id: transaction.id } })
   }
 
   const sign = transaction.amount < 0 ? "-" : "+"
@@ -31,7 +32,7 @@ const TransactionDetails: React.FC<Props> = ({ transaction }) => {
         {sign} ${Math.abs(transaction.amount)}
       </span>
       <button
-        onClick={deleteTransaction}
+        onClick={delTransaction}
         className="absolute left-0 px-2 py-1 text-lg leading-5 text-white transition-opacity duration-200 ease-in-out transform -translate-x-full bg-red-600 border-0 opacity-0 cursor-pointer delete-btn"
       >
         x

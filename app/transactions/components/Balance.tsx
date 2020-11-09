@@ -1,13 +1,13 @@
-import React from "react"
-import { useTransactionsState } from "app/transactions/context"
 import { sumAllAmounts } from "app/transactions/utils/functions"
+import React from "react"
+import useUserTransactions from "../hooks/useUserTransactions"
 
 type BalanceProps = {
   className?: string
 }
 
 const Balance: React.FC<BalanceProps> = ({ className }) => {
-  const { transactions } = useTransactionsState()
+  const [{ transactions }] = useUserTransactions()
 
   const total = sumAllAmounts(transactions)
 
