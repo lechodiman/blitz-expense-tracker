@@ -34,6 +34,7 @@
     "@prisma/cli": "2.10.2",
     "@prisma/client": "2.10.2",
     "blitz": "0.24.3",
+    "framer-motion": "2.9.4",
     "ramda": "0.27.1",
     "react": "0.0.0-experimental-7f28234f8",
     "react-dom": "0.0.0-experimental-7f28234f8",
