@@ -1,11 +1,8 @@
-import { useCurrentUser } from "app/hooks/useCurrentUser"
 import { useQuery } from "blitz"
-import getTransactions from "../queries/getTransactions"
+import getUserTransactions from "../queries/getUserTransactions"
 
 function useUserTransactions() {
-  const currentUser = useCurrentUser()
-
-  return useQuery(getTransactions, { where: { userId: currentUser?.id } }, { enabled: currentUser })
+  return useQuery(getUserTransactions, { take: 20 })
 }
 
 export default useUserTransactions

@@ -1,8 +1,9 @@
 import { useCurrentUser } from "app/hooks/useCurrentUser"
-import { useMutation } from "blitz"
+import { invalidateQuery, useMutation } from "blitz"
 import React, { useRef } from "react"
 import { useForm } from "react-hook-form"
 import createTransaction from "app/transactions/mutations/createTransaction"
+import getUserTransactions from "../queries/getUserTransactions"
 
 type FormData = {
   text: string
@@ -27,6 +28,8 @@ const AddTransaction: React.FC = () => {
     }
 
     await mutate({ data: newTransaction })
+    invalidateQuery(getUserTransactions)
+
     reset()
     textInputRef.current?.focus()
   })

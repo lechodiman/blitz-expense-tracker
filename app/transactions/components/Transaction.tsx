@@ -1,8 +1,9 @@
 import React from "react"
 import { Transaction } from "@prisma/client"
-import { useMutation } from "blitz"
+import { invalidateQuery, useMutation } from "blitz"
 import { motion } from "framer-motion"
 import deleteTransaction from "../mutations/deleteTransaction"
+import getUserTransactions from "../queries/getUserTransactions"
 
 interface Props {
   transaction: Transaction
@@ -11,8 +12,9 @@ interface Props {
 const TransactionDetails: React.FC<Props> = ({ transaction }) => {
   const [mutate] = useMutation(deleteTransaction)
 
-  const delTransaction = (): void => {
-    mutate({ where: { id: transaction.id } })
+  const delTransaction = async (): Promise<void> => {
+    await mutate({ where: { id: transaction.id } })
+    invalidateQuery(getUserTransactions)
   }
 
   const sign = transaction.amount < 0 ? "-" : "+"
@@ -33,7 +35,7 @@ const TransactionDetails: React.FC<Props> = ({ transaction }) => {
       </span>
       <button
         onClick={delTransaction}
-        className="absolute left-0 px-2 py-1 text-lg leading-5 text-white transition-opacity duration-200 ease-in-out transform -translate-x-full bg-red-600 border-0 opacity-0 cursor-pointer delete-btn"
+        className="absolute left-0 px-2 py-1 text-lg leading-5 text-white transition-opacity duration-200 ease-in-out transform -translate-x-full bg-red-600 border-0 cursor-pointer delete-btn"
       >
         x
       </button>
