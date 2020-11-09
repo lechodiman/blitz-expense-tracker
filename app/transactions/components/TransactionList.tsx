@@ -6,10 +6,6 @@ import Transaction from "./Transaction"
 const TransactionList: React.FC = () => {
   const [data] = useUserTransactions()
 
-  if (!data) {
-    return <p>hola</p>
-  }
-
   return (
     <>
       <h3 className="pb-2 mt-10 text-xl font-bold border-b-2 border-gray-400">History</h3>

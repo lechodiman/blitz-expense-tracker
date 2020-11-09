@@ -5,10 +5,6 @@ import { sumTotalIncome, sumTotalExpenses } from "../utils/functions"
 const History: React.FC = () => {
   const [data] = useUserTransactions()
 
-  if (!data) {
-    return <p>hola</p>
-  }
-
   const totalIncome = sumTotalIncome(data.transactions)
 
   const totalExpenses = sumTotalExpenses(data.transactions)

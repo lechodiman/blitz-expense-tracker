@@ -1,6 +1,5 @@
-import { useCurrentUser } from "app/hooks/useCurrentUser"
-import { invalidateQuery, useMutation } from "blitz"
 import React, { useRef } from "react"
+import { invalidateQuery, useMutation } from "blitz"
 import { useForm } from "react-hook-form"
 import createTransaction from "app/transactions/mutations/createTransaction"
 import getUserTransactions from "../queries/getUserTransactions"
@@ -15,13 +14,7 @@ const AddTransaction: React.FC = () => {
   const textInputRef = useRef<HTMLInputElement | null>(null)
   const [mutate] = useMutation(createTransaction)
 
-  const currentUser = useCurrentUser()
-
   const onSubmit = handleSubmit(async (values) => {
-    if (!currentUser) {
-      return
-    }
-
     const newTransaction = {
       name: values.text,
       amount: +values.amount,
