@@ -4,23 +4,27 @@ import { queryCache } from "react-query"
 import LoginForm from "app/auth/components/LoginForm"
 
 import "app/styles/index.css"
+import { ReactQueryDevtools } from "react-query-devtools"
 
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
   const router = useRouter()
 
   return (
-    <ErrorBoundary
-      FallbackComponent={RootErrorFallback}
-      resetKeys={[router.asPath]}
-      onReset={() => {
-        // This ensures the Blitz useQuery hooks will automatically refetch
-        // data any time you reset the error boundary
-        queryCache.resetErrorBoundaries()
-      }}
-    >
-      {getLayout(<Component {...pageProps} />)}
-    </ErrorBoundary>
+    <>
+      <ErrorBoundary
+        FallbackComponent={RootErrorFallback}
+        resetKeys={[router.asPath]}
+        onReset={() => {
+          // This ensures the Blitz useQuery hooks will automatically refetch
+          // data any time you reset the error boundary
+          queryCache.resetErrorBoundaries()
+        }}
+      >
+        {getLayout(<Component {...pageProps} />)}
+      </ErrorBoundary>
+      <ReactQueryDevtools />
+    </>
   )
 }
 

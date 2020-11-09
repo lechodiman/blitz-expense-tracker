@@ -3,11 +3,11 @@ import useUserTransactions from "../hooks/useUserTransactions"
 import { sumTotalIncome, sumTotalExpenses } from "../utils/functions"
 
 const History: React.FC = () => {
-  const [data] = useUserTransactions()
+  const [{ transactions }] = useUserTransactions()
 
-  const totalIncome = sumTotalIncome(data.transactions)
+  const totalIncome = sumTotalIncome(transactions)
 
-  const totalExpenses = sumTotalExpenses(data.transactions)
+  const totalExpenses = sumTotalExpenses(transactions)
 
   return (
     <div className="flex justify-between p-5 mx-0 my-5 bg-white rounded-md shadow-md">

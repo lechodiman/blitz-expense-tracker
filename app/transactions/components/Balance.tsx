@@ -7,13 +7,9 @@ type BalanceProps = {
 }
 
 const Balance: React.FC<BalanceProps> = ({ className }) => {
-  const [data] = useUserTransactions()
+  const [{ transactions }] = useUserTransactions()
 
-  if (!data) {
-    return <p>hola</p>
-  }
-
-  const total = sumAllAmounts(data.transactions)
+  const total = sumAllAmounts(transactions)
 
   return (
     <Suspense fallback="Loading">

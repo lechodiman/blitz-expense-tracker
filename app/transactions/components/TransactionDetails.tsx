@@ -5,16 +5,22 @@ import { motion } from "framer-motion"
 import deleteTransaction from "../mutations/deleteTransaction"
 import getUserTransactions from "../queries/getUserTransactions"
 
-interface Props {
+type TransactionDetailsProps = {
   transaction: Transaction
 }
 
-const TransactionDetails: React.FC<Props> = ({ transaction }) => {
-  const [mutate] = useMutation(deleteTransaction)
+const TransactionDetails: React.FC<TransactionDetailsProps> = ({ transaction }) => {
+  const [deleteTransactionMutation] = useMutation(deleteTransaction)
 
-  const delTransaction = async (): Promise<void> => {
-    await mutate({ where: { id: transaction.id } })
-    invalidateQuery(getUserTransactions)
+  const handleDeleteTransaction = async () => {
+    await deleteTransactionMutation(
+      { where: { id: transaction.id } },
+      {
+        onSuccess: () => {
+          invalidateQuery(getUserTransactions)
+        },
+      }
+    )
   }
 
   const sign = transaction.amount < 0 ? "-" : "+"
@@ -34,7 +40,7 @@ const TransactionDetails: React.FC<Props> = ({ transaction }) => {
         {sign} ${Math.abs(transaction.amount)}
       </span>
       <button
-        onClick={delTransaction}
+        onClick={handleDeleteTransaction}
         className="absolute left-0 px-2 py-1 text-lg leading-5 text-white transition-opacity duration-200 ease-in-out transform -translate-x-full bg-red-600 border-0 cursor-pointer delete-btn"
       >
         x
