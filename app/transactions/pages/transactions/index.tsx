@@ -4,7 +4,7 @@ import Header from "app/transactions/components/Header"
 import History from "app/transactions/components/History"
 import TransactionList from "app/transactions/components/TransactionList"
 import { BlitzPage } from "blitz"
-import React, { Suspense } from "react"
+import { Suspense } from "react"
 
 const Spinner = () => {
   return (
