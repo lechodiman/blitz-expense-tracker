@@ -5,6 +5,7 @@ import History from "app/transactions/components/History"
 import TransactionList from "app/transactions/components/TransactionList"
 import { BlitzPage } from "blitz"
 import { Suspense } from "react"
+import Layout from "app/layouts/Layout"
 
 const Spinner = () => {
   return (
@@ -16,7 +17,7 @@ const Spinner = () => {
 
 const TransactionsPage: BlitzPage = () => {
   return (
-    <Suspense fallback={<Spinner></Spinner>}>
+    <Suspense fallback={<Spinner />}>
       <div className="flex flex-col items-center justify-center min-h-screen m-0 bg-gray-300 font-body">
         <div className="w-full p-4 mx-auto sm:p-5 sm:w-8/12 lg:w-4/12">
           <Header />
@@ -32,5 +33,7 @@ const TransactionsPage: BlitzPage = () => {
     </Suspense>
   )
 }
+
+TransactionsPage.getLayout = (page) => <Layout title="Transactions">{page}</Layout>
 
 export default TransactionsPage
